@@ -1,0 +1,4 @@
+include picoharp/widgets/*.ui
+include picoharp/config.xml
+include .bumpversion
+

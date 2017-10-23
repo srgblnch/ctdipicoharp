@@ -16,7 +16,7 @@
 # ##### END GPL LICENSE BLOCK #####
 
 import sys
-from taurus import Database, Logger
+from taurus import Authority, Logger
 from taurus.qt.qtgui.util.ui import UILoadable
 from taurus.qt.qtgui.container import TaurusWidget
 from taurus.external.qt import Qt, QtGui, QtCore
@@ -81,21 +81,24 @@ class TaurusDevCombo(TaurusWidget):
 
     def setModel(self, model):
         self.getDeviceListByDeviceServerName(model)
-        self._ui.selectorCombo.addItems(self._deviceNames.keys())
+        devNames = list(self._deviceNames.keys())
+        devNames.sort()
+        self._ui.selectorCombo.addItems(devNames)
+        self.selection(devNames[0])
 
     def getDeviceListByDeviceServerName(self, deviceServerName):
-        db = Database()
-        foundInstances = db.getServerNameInstances(deviceServerName)
-        self.debug("by %s found %d instances: %s."
-                   % (deviceServerName, len(foundInstances),
-                      ','.join("%s" % instance.name()
-                               for instance in foundInstances)))
+        authority = Authority()
+        foundInstances = authority.getServerNameInstances(deviceServerName)
+        self.info("by %s found %d instances: %s."
+                  % (deviceServerName, len(foundInstances),
+                     ','.join("%s" % instance.name()
+                              for instance in foundInstances)))
         self._deviceNames = {}
         for instance in foundInstances:
             for i, devName in enumerate(instance.getDeviceNames()):
                 if not devName.startswith('dserver'):
                     self._deviceNames[devName] = instance.getClassNames()[i]
-        return self._deviceNames.keys()
+        return list(self._deviceNames.keys())
 
     def selection(self, devName):
         if isinstance(devName, int):
@@ -103,7 +106,7 @@ class TaurusDevCombo(TaurusWidget):
         if devName not in self._deviceNames.keys():
             self.warning("Selected device is not in the list "
                          "of devices found!")
-        self.debug("selected %s" % (devName))
+        self.info("selected %s" % (devName))
         self._selectedDevice = devName
         self.modelChosen.emit()
 

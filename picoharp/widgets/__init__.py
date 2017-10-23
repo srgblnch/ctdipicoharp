@@ -15,8 +15,8 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from TaurusDevCombo import TaurusDevCombo
-from panels import *
+from .TaurusDevCombo import TaurusDevCombo
+from .panels import *
 
 __author__ = "Sergi Blanch-Torne"
 __copyright__ = "Copyright 2014, CELLS / ALBA Synchrotron"

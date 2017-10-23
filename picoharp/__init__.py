@@ -15,5 +15,5 @@
 #
 # ##### END GPL LICENSE BLOCK #####
 
-from config import *
-from widgets import *
+from .config import *
+from .widgets import *

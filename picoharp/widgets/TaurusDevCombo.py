@@ -18,7 +18,7 @@
 import sys
 from taurus import Database, Logger
 from taurus.qt.qtgui.util.ui import UILoadable
-from taurus.qt.qtgui.panel import TaurusWidget
+from taurus.qt.qtgui.container import TaurusWidget
 from taurus.external.qt import Qt, QtGui, QtCore
 
 __author__ = "Sergi Blanch-Torne"

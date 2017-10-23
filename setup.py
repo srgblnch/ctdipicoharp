@@ -32,6 +32,8 @@ setup(
     author="Sergi Blanch-Torn\'e",
     author_email="sblanch@cells.es",
     packages=find_packages(),
+    package_dir={'widgets': ['widgets/ui']},
+    package_data={'widgets': ['*.ui']},
     entry_points={
         'console_scripts': [],
         'gui_scripts': [
